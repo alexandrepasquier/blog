@@ -2,11 +2,11 @@
 
 {% block content %}
 
-    {% for Article in categoryArticles %}
+    {% for categoryArticle in categoryArticles %}
 
-        {{ Article.id }}: {{ Article.title }}<br>
-        {{ Article.content }}<br>
+        {{ categoryArticle.id }}: {{ categoryArticle.title }}<br>
+        {{ categoryArticle.content }}<br>
+
 
     {% endfor %}
-
 {% endblock %}

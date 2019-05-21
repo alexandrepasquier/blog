@@ -6,6 +6,7 @@ use App\Entity\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 /**
  * class BlogController
  * @package App\Controller
@@ -80,18 +81,19 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @param string $categoryName
-     * @Route("/category/{categoryName}", name="show_category")
+     * @param $category
+     * @Route("/category/{name}", name="show_category")
      * @return Response A response instance
      */
-    public function showByCategory(string $categoryName)
+    public function showByCategory(category $category): Response
     {
 
-        $category = $this->getDoctrine()->getRepository(Category::class)->findOneBy(['name' => $categoryName]);
-        $categoryArticles = $this->getDoctrine()->$category->getArticles();
+
+        $categoryArticles = $category->getArticles();
         return $this->render(
           'blog/category.html.twig', [
-            'categoryArticles' => $categoryArticles
+            'categoryArticles' => $categoryArticles,
+              'category'=>$category
         ]
           );
 
